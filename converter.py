@@ -1,12 +1,13 @@
 import cv2 as cv
 import numpy as np
 import matplotlib.pyplot as plt
+import math
 
 ascii_grayscale = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\\|()1{}[]?-_+~<>i!lI;:,"^`\'.'
 
 outfile = open('output.txt', 'w')
 
-img = cv.imread('homer.jpg')
+img = cv.imread('sponge.jpeg')
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 fig, ax = plt.subplots(1, 2, figsize=(16,8))
@@ -31,4 +32,14 @@ asciiDict = {'1':'$','2':'@','3':'B','4':'%','5':'8','6':'&','7':'W','8':'M','9'
 			
 		#print("Numerical Value: " + str(gray[j][i]))'''
 
-plt.show()
+for i in range(rows):
+	for j in range(cols):
+		if(gray[i][j] == 0):
+			gray[i][j] = 1
+		to_string = str(math.ceil((gray[i][j])/4))
+		outfile.write(asciiDict[to_string])
+		#outfile.write(to_string)
+		#print(gray[i][j])
+	outfile.write('\n')
+
+#plt.show()
